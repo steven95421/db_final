@@ -39,10 +39,10 @@ class Team(models.Model):
     )
     created_at = models.DateTimeField(auto_now_add=True)
     
-    class Post(models.Model):
-	    user_id = models.UUIDField(editable=False, unique=True)
-	    user_password = models.CharField(max_length=20)
-	    user_email = models.CharField(max_length=100)
-	    is_admin = models.BooleanField
+class User(models.Model):
+	user_id = models.UUIDField(editable=False, unique=True)
+	user_password = models.CharField(max_length=20)
+	user_email = models.CharField(max_length=100)
+	is_admin = models.BooleanField
     
     
