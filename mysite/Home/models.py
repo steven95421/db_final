@@ -1,6 +1,5 @@
 from django.db import models
-from django.db.models import CharField, Model
-from django_mysql.models import ListCharField
+import json
 
 # Create your models here.
 
@@ -22,21 +21,21 @@ class Announcement(models.Model):
 class Team(models.Model):
     teamid = models.AutoField(primary_key=True)
     teamname = models.CharField(max_length=100)
-    studentid = ListCharField(
-        base_field=CharField(max_length=100),
-        size=20,
-        max_length=(20 * 101)  # 20 * 100 character nominals, plus commas
-    )
-    studentname = ListCharField(
-        base_field=CharField(max_length=100),
-        size=20,
-        max_length=(20 * 101)  # 20 * 100 character nominals, plus commas
-    )
-    event = ListCharField(
-        base_field=CharField(max_length=100),
-        size=20,
-        max_length=(20 * 101)  # 20 * 100 character nominals, plus commas
-    )
+    studentid = models.CharField(max_length=2000)
+    def set_studentid(self, x):
+        self.studentid = json.dumps(x)
+    def get_studentid(self):
+        return json.loads(self.studentid)
+    studentname = models.CharField(max_length=2000)
+    def set_studentname(self, x):
+        self.studentname = json.dumps(x)
+    def get_studentname(self):
+        return json.loads(self.studentname)
+    event = models.CharField(max_length=2000)
+    def set_event(self, x):
+        self.event = json.dumps(x)
+    def get_event(self):
+        return json.loads(self.event)
     created_at = models.DateTimeField(auto_now_add=True)
     
 class User(models.Model):
