@@ -2,14 +2,21 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-
+from Home.models import Announcement
+from Home.models import event
 
 def home(request):
-    return render(request, 'home.html')
+    Announcement_list = Announcement.objects.all()
+    return render(request, 'home.html', {
+        'Announcement_list': Announcement_list,
+    })
 
 
 def events(request):
-    return render(request, 'events.html')
+    event_list = event.objects.all()
+    return render(request, 'events.html', {
+        'event_list': event_list,
+    })
 
 
 def signup(request):

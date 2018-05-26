@@ -19,6 +19,9 @@ class Announcement(models.Model):
     image = models.URLField(blank=True)
     markdown_text = models.TextField(blank=True)
 
+    def __str__(self):
+        return self.Title
+
 
 class Team(models.Model):
     teamid = models.AutoField(primary_key=True)
@@ -52,5 +55,3 @@ class User(models.Model):
     user_password = models.CharField(max_length=20)
     user_email = models.CharField(max_length=100)
     is_admin = models.BooleanField
-
-

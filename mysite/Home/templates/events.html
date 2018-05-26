@@ -62,7 +62,8 @@
 				<th class="text-center">報名</th>
 			</tr>
 			<tr>
-				<td>泡泡足球</td>
+				 {% for event in event_list %}
+				<td>{{ event.Title }}</td>
 				<td>像泡泡一樣的足球</td>
 				<td>
 					<a href="/signup">
