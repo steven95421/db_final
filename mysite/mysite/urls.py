@@ -16,17 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from Home import views as Home_views  # new
-from login import views as login_views  # new
-from Annoucement import views as Annoucement_views  # new
-from event import views as event_views  # new
-from signup import views as signup_views  # new
+
 urlpatterns = [
     path('', Home_views.home),  # new
     path('home/', Home_views.home),  # new
     path('admin/', admin.site.urls),
-    path('login/', login_views.login),
-    path('Annoucement/', Annoucement_views.anncs),
-    path('events/', event_views.events),
-    path('signup/', signup_views.signup)
+    path('login/', Home_views.login),
+    path('anncs/', Home_views.anncs),
+    path('events/', Home_views.events),
+    path('signup/', Home_views.signup)
 
 ]
