@@ -67,6 +67,21 @@
 		<h3 class="title">最新公告</h3>
 		<div class="row">
 			<table class="table">
+				{% for Announcement in post_list %}
+    					<div>
+   					 <a href="" rel="stylesheet">{{ Announcement.Title }}</a>
+    					 <a>{{ Announcement.Description}}</a>
+    					{{ Announcement.Posted_time|date:"Y / m / d" }}
+    					{% if Announcement.image %}
+					<div class="thumbnail">
+    						<img src="{{ Announcement.image }}" alt="">
+					</div>
+					{% else %}
+					<div class="thumbnail thumbnail-default"></div>
+					{% endif %}
+					{{ Announcement.markdown_text }}
+    					</div>
+				{% endfor %}
 			</table>
 		</div>
 	</div>
