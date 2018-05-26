@@ -6,6 +6,7 @@ import django
 
 
 class event(models.Model):
+    #Event_id = models.AutoField(primary_key=True, default=0)
     Event_name = models.CharField(max_length=50)
     Description = models.TextField(blank=True)
     Date = models.DateField()
