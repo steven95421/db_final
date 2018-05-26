@@ -49,8 +49,6 @@
 						</a>
 					</li>
 				</ul>
-<<<<<<< HEAD
-<<<<<<< HEAD
 				<ul class="nav navbar-nav navbar-link">
 					<li>
 						<a href="/register">註冊
@@ -58,12 +56,6 @@
 						</a>
 					</li>
 				</ul>
-=======
-				
->>>>>>> 460ed7100c7e9c7eb1e3b66709c44df43899c5b8
-=======
-				
->>>>>>> 460ed7100c7e9c7eb1e3b66709c44df43899c5b8
 			</div>
 		</div>
 	</nav>
@@ -72,19 +64,17 @@
 		<div class="row">
 			<table class="table">
 				{% for Announcement in post_list %}
-    					<div>
-   					 <a href="" rel="stylesheet">{{ Announcement.Title }}</a>
-    					 <a>{{ Announcement.Description}}</a>
-    					{{ Announcement.Posted_time|date:"Y / m / d" }}
-    					{% if Announcement.image %}
+				<div>
+					<a href="" rel="stylesheet">{{ Announcement.Title }}</a>
+					<a>{{ Announcement.Description}}</a>
+					{{ Announcement.Posted_time|date:"Y / m / d" }} {% if Announcement.image %}
 					<div class="thumbnail">
-    						<img src="{{ Announcement.image }}" alt="">
+						<img src="{{ Announcement.image }}" alt="">
 					</div>
 					{% else %}
 					<div class="thumbnail thumbnail-default"></div>
-					{% endif %}
-					{{ Announcement.markdown_text }}
-    					</div>
+					{% endif %} {{ Announcement.markdown_text }}
+				</div>
 				{% endfor %}
 			</table>
 		</div>
