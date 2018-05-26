@@ -24,6 +24,7 @@ urlpatterns = [
     path('login/', Home_views.login),
     path('anncs/', Home_views.anncs),
     path('events/', Home_views.events),
-    path('signup/', Home_views.signup)
+    path('signup/', Home_views.signup),
+    path('register/', Home_views.register)
 
 ]
