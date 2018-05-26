@@ -49,6 +49,7 @@
 						</a>
 					</li>
 				</ul>
+				
 			</div>
 		</div>
 	</nav>
@@ -56,42 +57,21 @@
 		<h3 class="title">最新公告</h3>
 		<div class="row">
 			<table class="table">
-				<tr>
-					<td class="td-date">2018 / 09 / 06</td>
-					<td>
-						<a href="/anncs">107學年度上學期 體育週開始報名啦！各系體幹看過來！</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-date">2018 / 09 / 05</td>
-					<td>
-						<a href="/anncs">107學年度 各系體幹名單</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-date">2018 / 09 / 06</td>
-					<td>
-						<a href="/anncs">107學年度 班代注意事項</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-date">2017 / 09 / 06</td>
-					<td>
-						<a href="/anncs">106學年度 交換學生太多之取消名單</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-date">2017 / 09 / 05</td>
-					<td>
-						<a href="/anncs">106學年度 系學會徵才</a>
-					</td>
-				</tr>
-				<tr>
-					<td class="td-date">2017 / 09 / 06</td>
-					<td>
-						<a href="/anncs">106學年度 沒導聚的學生不用擔心，系辦照顧你</a>
-					</td>
-				</tr>
+				{% for Announcement in post_list %}
+    					<div>
+   					 <a href="" rel="stylesheet">{{ Announcement.Title }}</a>
+    					 <a>{{ Announcement.Description}}</a>
+    					{{ Announcement.Posted_time|date:"Y / m / d" }}
+    					{% if Announcement.image %}
+					<div class="thumbnail">
+    						<img src="{{ Announcement.image }}" alt="">
+					</div>
+					{% else %}
+					<div class="thumbnail thumbnail-default"></div>
+					{% endif %}
+					{{ Announcement.markdown_text }}
+    					</div>
+				{% endfor %}
 			</table>
 		</div>
 	</div>
