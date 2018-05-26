@@ -26,29 +26,19 @@ class Announcement(models.Model):
 
 
 class Team(models.Model):
-    teamid = models.AutoField(primary_key=True)
-    teamname = models.CharField(max_length=100)
-    studentid = models.CharField(max_length=2000)
-
+    team_id = models.AutoField(primary_key=True)
+    team_name = models.CharField(max_length=100)
+    student_id = models.CharField(max_length=2000)
     def set_studentid(self, x):
         self.studentid = json.dumps(x)
-
     def get_studentid(self):
-        return json.loads(self.studentid)
-    studentname = models.CharField(max_length=2000)
-
+        return json.loads(self.student_id)
+    student_name = models.CharField(max_length=2000)
     def set_studentname(self, x):
         self.studentname = json.dumps(x)
-
     def get_studentname(self):
-        return json.loads(self.studentname)
-    event = models.CharField(max_length=2000)
-
-    def set_event(self, x):
-        self.event = json.dumps(x)
-
-    def get_event(self):
-        return json.loads(self.event)
+        return json.loads(self.student_name)
+    event = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
 
 

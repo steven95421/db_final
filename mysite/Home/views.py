@@ -13,15 +13,16 @@ def home(request):
     })
 
 
+def signup(request, id):
+    event_signup = event.objects.get(id=id)
+    return render(request, 'signup.html', {'event_signup': event_signup})
+
+
 def events(request):
     event_list = event.objects.all()
     return render(request, 'events.html', {
         'event_list': event_list,
     })
-
-
-def signup(request):
-    return render(request, 'signup.html')
 
 
 def login(request):
