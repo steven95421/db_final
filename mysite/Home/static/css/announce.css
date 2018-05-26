@@ -1,21 +1,51 @@
 .announce-wrapper .title {
-  margin-bottom: 30px; }
+  margin-bottom: 60px;
+  font-size: 30px;
+  color: #0000FF;
+ }
+.announce-wrapper .table .announcement_title{
+  margin-bottom: 10px;
+  margin-right:30px;
+  font-family:Arial;
+  font-size: 20px;
+  color: #0066FF;
+  text-decoration:underline; 
+  word-spacing:1px; 
+  font-weight:bold;
+ }
+
+.announce-wrapper .table .Announcement_Description {
+  padding: 20px;
+  overflow: auto;
+  font-family:arial; 
+  top:10px; 
+  left:10px;
+   	
+ }
+
 .announce-wrapper .btn-remove {
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 16px;
   float: right;
   margin-left: 10px; }
 .announce-wrapper .date {
-  color: #4F86C6; }
+  color: #4F86C5; }
 .announce-wrapper .table {
   font-size: 16px; }
   .announce-wrapper .table tr {
-    border-bottom: 1px solid #f5f5f5; }
+    border: 3px solid #f5f5f5; 
+     }
   .announce-wrapper .table td {
-    padding: 1em; }
+    border: 3px solid #f5f5f5; 
+    padding: 1em; 
+}
   .announce-wrapper .table .td-date {
-    width: 150px; }
-.announce-wrapper .announce-content {
-  padding: 30px; }
+    position:relative; 
+    top:10px; 
+    left:10px; 
+    width: 200px;
+    font-family:fantasy;
+	 }
+
 
 /*# sourceMappingURL=announce.css.map */
