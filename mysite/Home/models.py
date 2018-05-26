@@ -7,6 +7,7 @@ import django
 
 class event(models.Model):
     Event_name = models.CharField(max_length=50)
+    Description = models.TextField(blank=True)
     Date = models.DateField()
     Team_Limit = models.IntegerField()
     Team_Size_Limit = models.IntegerField()
