@@ -22,3 +22,7 @@ def login(request):
 
 def anncs(request):
     return render(request, 'anncs.html')
+
+
+def admin(request):
+    return render(request, 'admin.html')
