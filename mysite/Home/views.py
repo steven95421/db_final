@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from Home.models import Announcement
 from Home.models import event
 
+
 def home(request):
     Announcement_list = Announcement.objects.all()
     return render(request, 'home.html', {
