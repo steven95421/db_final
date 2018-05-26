@@ -44,7 +44,7 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-link">
 					<li>
-						<a href="/login">登入
+						<a href="{% url 'login' %}">登入
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
@@ -59,6 +59,14 @@
 			</div>
 		</div>
 	</nav>
+	{% block content %}
+	{% if user.is_authenticated %}
+		Hi {{ user.username }}!
+		<p><a href="{% url 'logout' %}">logout</a></p>
+	{% else %}
+  		<p>You are not logged in</p>
+	{% endif %}
+	{% endblock %}
 	<div class="container announce-wrapper">
 		<h3 class="title">最新公告</h3>
 		<div class="row">

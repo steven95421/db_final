@@ -26,7 +26,7 @@ SECRET_KEY = 'vcl*4@uly$=#@1#a4s%vj%a%!7k172*i+1w@lt8#o7(64yoh&m'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+LOGIN_REDIRECT_URL = '/'
 
 # Application definition
 
@@ -58,6 +58,7 @@ TEMPLATES = [
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
         'APP_DIRS': True,
+	'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -81,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db_final',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'rig521icy0845106',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
