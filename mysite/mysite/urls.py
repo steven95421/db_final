@@ -20,9 +20,6 @@ from django.conf.urls import include
 urlpatterns = [
     path('', Home_views.home),  # new
     path('home/', Home_views.home),  # new
-    path('jet/', include('jet.urls', 'jet')),  # Django JET URLS
-    path('jet/dashboard/', include('jet.dashboard.urls',
-                                   'jet-dashboard')),  # Django JET dashboard URLS
     path('admin/', admin.site.urls),
     path('login/', Home_views.login),
     path('anncs/', Home_views.anncs),
