@@ -44,45 +44,46 @@
 				</ul>
 				<ul class="nav navbar-nav navbar-link">
 					<li>
-						<a href="{% url 'login' %}">登入
+						<a href="/login">登入
 							<span class="sr-only">(current)</span>
 						</a>
 					</li>
 				</ul>
-				<ul class="nav navbar-nav navbar-link">
-					<li>
-						<a href="/register">註冊
-							<span class="sr-only">(current)</span>
-						</a>
-					</li>
-				</ul>
+				
 			</div>
 		</div>
 	</nav>
-	{% block content %}
-	{% if user.is_authenticated %}
-		Hi {{ user.username }}!
-		<p><a href="{% url 'logout' %}">logout</a></p>
-	{% else %}
-  		<p>You are not logged in</p>
-	{% endif %}
-	{% endblock %}
 	<div class="container announce-wrapper">
 		<h3 class="title">最新公告</h3>
 		<div class="row">
 			<table class="table">
-				{% for Announcement in Announcement_list %}
-				<div>
-					<a href="" rel="stylesheet">{{ Announcement.Title }}</a>
-					<a>{{ Announcement.Description}}</a>
-					{{ Announcement.Posted_time|date:"Y / m / d" }} {% if Announcement.image %}
-					<div class="thumbnail">
-						<img src="{{ Announcement.image }}" alt="">
-					</div>
-					{% else %}
-					<div class="thumbnail thumbnail-default"></div>
-					{% endif %} {{ Announcement.markdown_text }}
-				</div>
+				{% for Announcement in post_list %}
+    					<tr>
+						<td class="td-date">
+							{{ Announcement.Posted_time }}
+						</td>
+						<td class="announcement_title" href="/#" >
+							{{ Announcement.Title }}
+						</td>	
+					</tr>
+					<tr>
+						<td>		
+    							{% if Announcement.image %}
+								<p>
+    									<img src="{{ Announcement.image }}" alt="">
+								</p>
+							{% else %}
+								<p class="thumbnail thumbnail-default"></p>
+							{% endif %}
+						</td>
+						<td class="Announcement_Description">			
+							{{ Announcement.Description}}
+						</td>
+						
+						<td>
+							{{ Announcement.markdown_text }}
+						</td>
+    					</tr>
 				{% endfor %}
 			</table>
 		</div>
