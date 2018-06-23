@@ -1,0 +1,21 @@
+ {% extends 'upper.html' %} {% block content %}
+<div class="container login-wrapper">
+	<form method="POST">
+		{% csrf_token %} {{ form.as_p }}
+		<div class="row">
+			<div class="col-md-9 col-md-offset-1">
+				<br>
+				<br>
+				<br>
+			</div>
+			<div class="col-md-6">
+				<button class="btn btn-default btn-login" type="submit">登入</button>
+			</div>
+			<div class="col-md-10 col-md-offset-1">
+				<br>
+				<a href="http://localhost/forgetpassword.php" class="text-notify">忘記密碼？</a>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}

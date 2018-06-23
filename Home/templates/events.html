@@ -1,0 +1,25 @@
+ {% extends 'upper.html' %} {% block content %}
+<div class="container event-wrapper event-list">
+	<h3 class="title">活動列表</h3>
+	<br>
+	<table class="table text-center">
+		<tr>
+			<th class="text-center">項目</th>
+			<th class="text-center">規則</th>
+			<th class="text-center">報名</th>
+		</tr>
+		{% for event in event_list %}
+		<tr>
+			<td>{{ event.Event_name }}</td>
+			<td>{{ event.Description }}</td>
+			<td>
+				<a href="/signup/{{ event.id }}">
+					<button class="btn btn-default btn-event">報名</button>
+				</a>
+			</td>
+		</tr>
+		{% endfor %}
+
+	</table>
+</div>
+{% endblock %}
