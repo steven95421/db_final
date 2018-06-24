@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from django.shortcuts import redirect
 from Home.forms import SignUpForm
 from django.http import HttpResponse
 from Home.models import Announcement
@@ -60,7 +60,7 @@ def register(request):
             user.profile.gender = form.cleaned_data.get('gender')
             user.profile.studnet_name = form.cleaned_data.get('studnet_name')
             auth_login(request,user)
-            return redirect('home')
+            return redirect('/home/', permanent=True)
     else:
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
