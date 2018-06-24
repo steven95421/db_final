@@ -54,11 +54,17 @@
                         <a href="{% url 'logout' %} ">登出</a>
                     </li>
                     {% else %}
+                    <li {% if request.path == '/register/' %} class="active" {% endif %}>
+                        <a href="/register ">註冊
+                            <span class="sr-only ">(current)</span>
+                        </a>
+                    </li>
                     <li {% if request.path == '/login/' %} class="active" {% endif %}>
                         <a href="/login ">登入
                             <span class="sr-only ">(current)</span>
                         </a>
                     </li>
+
                     {% endif %}
                 </ul>
 

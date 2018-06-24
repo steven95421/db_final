@@ -2,35 +2,30 @@
 <div class="container announce-wrapper">
 	<h3 class="title">最新公告</h3>
 	<div class="row">
-		<table class="table">
-			{% for Announcement in post_list %}
-			<tr>
-				<td class="td-date">
-					{{ Announcement.Posted_time }}
-				</td>
-				<td class="announcement_title" href="/#">
-					{{ Announcement.Title }}
-				</td>
-			</tr>
-			<tr>
-				<td>
-					{% if Announcement.image %}
-					<p>
-						<img src="{{ Announcement.image }}" alt="">
-					</p>
-					{% else %}
-					<p class="thumbnail thumbnail-default"></p>
-					{% endif %}
-				</td>
-				<td class="Announcement_Description">
-					{{ Announcement.Description}}
-				</td>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>標題</th>
+					<th>發布時間</th>
+				</tr>
+			</thead>
 
-				<td>
-					{{ Announcement.markdown_text }}
-				</td>
-			</tr>
-			{% endfor %}
+			<tbody>
+				{% for Announcement in Announcement_list %}
+				<tr>
+					<td>
+						<a href="/anncs/{{ Announcement.id }}">
+							{{ Announcement.Title }}
+						</a>
+					</td>
+					<td>
+						{{ Announcement.Posted_time }}
+					</td>
+					{% endfor %}
+				</tr>
+			</tbody>
+
+
 		</table>
 	</div>
 </div>{% endblock %}

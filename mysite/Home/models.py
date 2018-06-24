@@ -1,7 +1,10 @@
 from django.db import models
 import json
 import django
-
+from datetime import datetime
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 
@@ -13,14 +16,17 @@ class event(models.Model):
     Team_Limit = models.IntegerField()
     Team_Size_Limit = models.IntegerField()
 
+    def __str__(self):
+        return self.Event_name
+
 
 class Announcement(models.Model):
     Title = models.CharField(max_length=100)
     Description = models.TextField(blank=True)
-    Posted_time = models.CharField(max_length=100)
+    Posted_time = models.DateTimeField(default=datetime.now, blank=True)
     image = models.URLField(blank=True)
     markdown_text = models.TextField(blank=True)
-
+    author = models.CharField(max_length=100)
     def __str__(self):
         return self.Title
 
@@ -42,8 +48,22 @@ class Team(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class User(models.Model):
-    user_id = models.UUIDField(editable=False, unique=True)
-    user_password = models.CharField(max_length=20)
-    user_email = models.CharField(max_length=100)
-    is_admin = models.BooleanField
+class Profile(models.Model):
+       user = models.OneToOneField(User, on_delete=models.CASCADE)
+       gender = models.CharField(
+           max_length=1, choices=(('m', 'Male'), ('f', 'Female')),
+           blank=True, null=True)
+       email = models.EmailField(
+           max_length=254, help_text='Required. Inform a valid email address.', null=True)
+    
+       studnet_name = models.CharField(max_length=2000)
+
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+
+
