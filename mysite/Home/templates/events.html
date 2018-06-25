@@ -1,12 +1,20 @@
  {% extends 'upper.html' %} {% block content %}
 <div class="container event-wrapper event-list">
 	<h3 class="title">活動列表</h3>
+	{% if user.is_superuser %}
+	<div class="pull-right">
+		<button type="button" class="btn btn-primary">新增活動</button>
+	</div>
+	{% endif %}
 	<br>
 	<table class="table text-center">
 		<tr>
 			<th class="text-center">項目</th>
 			<th class="text-center">規則</th>
 			<th class="text-center">報名</th>
+			{% if user.is_superuser %}
+			<th class="text-center">操作</th>
+			{% endif %}
 		</tr>
 		{% for event in event_list %}
 		<tr>
@@ -17,6 +25,31 @@
 					<button class="btn btn-default btn-event">報名</button>
 				</a>
 			</td>
+			{% if user.is_superuser %}
+			<td>
+				<a href=" /events/edit/{{ event.id }}">
+					<button type="button" class="btn btn-primary">修改</button>
+				</a>
+				<a href="/events/status/{{ event.id }}">
+					<button type="button" class="btn btn-success">報名狀況</button>
+				</a>
+				<a href="/events/delete/{{ event.id }}">
+				<div class="pull-right">
+					<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')" />刪除</button>
+				</div>
+				</a>
+			</td>
+			<script type="text/javascript">
+    function clicked() {
+       if (confirm('Do you want to submit?')) {
+           yourformelement.submit();
+       } else {
+           return false;
+       }
+    }
+			{% endif %}
+
+
 		</tr>
 		{% endfor %}
 

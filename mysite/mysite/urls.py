@@ -30,5 +30,6 @@ urlpatterns = [
     re_path('signup/(?P<id>\d+)/', Home_views.signup),
     re_path('anncs/(?P<id>\d+)/', Home_views.anncs),
     path('register/', Home_views.register),
+    re_path('events/delete/(?P<id>\d+)/', Home_views.delete_event),
 
 ]

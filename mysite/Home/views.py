@@ -48,8 +48,6 @@ def update_profile(request, user_id):
     user.save()
 
 def register(request):
-
-
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -64,4 +62,11 @@ def register(request):
     else:
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
+def delete_event(request, id):
+    event_delete = event.objects.get(id=id)
+    event_delete.delete()
+    return redirect('/events/', permanent=True)
+
+    
+
 
