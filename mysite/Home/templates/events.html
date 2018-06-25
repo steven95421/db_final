@@ -3,7 +3,9 @@
 	<h3 class="title">活動列表</h3>
 	{% if user.is_superuser %}
 	<div class="pull-right">
-		<button type="button" class="btn btn-primary">新增活動</button>
+		<a href="/events/add">
+			<button type="button" class="btn btn-primary">新增活動</button>
+		</a>
 	</div>
 	{% endif %}
 	<br>
@@ -34,20 +36,19 @@
 					<button type="button" class="btn btn-success">報名狀況</button>
 				</a>
 				<a href="/events/delete/{{ event.id }}">
-				<div class="pull-right">
-					<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')" />刪除</button>
-				</div>
+					<div class="pull-right">
+						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')" />刪除</button>
+					</div>
 				</a>
 			</td>
 			<script type="text/javascript">
-    function clicked() {
-       if (confirm('Do you want to submit?')) {
-           yourformelement.submit();
-       } else {
-           return false;
-       }
-    }
-			{% endif %}
+				function clicked() {
+					if (confirm('Do you want to submit?')) {
+						yourformelement.submit();
+					} else {
+						return false;
+					}
+				} </script> {% endif %}
 
 
 		</tr>
