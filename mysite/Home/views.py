@@ -68,6 +68,21 @@ def delete_event(request, id):
     event_delete.delete()
     return redirect('/events/', permanent=True)
     
+
+
+
+def events_edit(request, id):
+    post = event.objects.get(id=id)
+    if request.method == "POST":
+        form = EventForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('/events/', permanent=True)
+    else:
+        form = EventForm(instance=post)
+    return render(request, 'event_edit.html', {'form': form})
+
 def events_add(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
