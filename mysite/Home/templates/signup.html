@@ -1,39 +1,44 @@
- {% extends 'upper.html' %} {% block content %}
-<div class="container event-wrapper">
-	<div class="signup-form">
-		<h3 class="text-center">{{event_signup.Event_name}}</h3>
-		<div class="description">
-			<p>每隊上限：{{event_signup.Team_Limit}}</p>
-			<p>隊伍上限：{{event_signup.Team_Size_Limit}}</p>
-			<p>已報名隊伍：3 隊</p>
-			<p class="warning">尚可報名：17 隊</p>
-		</div>
-		<br>
-		<label class="text-center" for="team_name">隊伍名稱</label>
-		<input type="text" id="team_name" name="team_name" class="form-control" value="MHW Pro">
-		<br>
-		<label class="text-center" for="team_name">隊伍人員</label>
-		<table class="table">
-			<tr>
-				<th class="student-id">隊員學號</th>
-				<th>姓名</th>
-				<th></th>
-			</tr>
-
-			<tr>
-				<td class="student-id">
-					<input type="text" name="student_id" class="form-control">
-				</td>
-				<td >
-
-				</td>
-				<td class="text-right">
-					<button class="btn btn-new" style="margin-right:30px">新增隊員</button>
-				</td>
-			</tr>
-		</table>
-		<div class="text-left form-bottom">
-			<button class="btn btn-default">提交報名表</button>
-		</div>
-	</div>
-</div>{% endblock %}
+{% extends 'upper.html' %} {% block content %}
+<form method="post">
+    <div class="container event-wrapper">
+        <div class="signup-form">
+            <h3 class="text-center">{{event_signup.Event_name}}</h3>
+            <div class="description">
+                <p>每隊上限：{{event_signup.Team_Size_Limit}}</p>
+                <p>隊伍上限：{{event_signup.Team_Limit}}</p>
+                <p>已報名隊伍：</p>
+                <p>尚可報名隊伍：{{event_signup.Team_Limit}}</p>
+            </div>
+        </div>
+        {% csrf_token %}<div class="row spacer">
+        <div class="col-2">
+            <label>{{form.team_name.label}}</label>
+        </div>
+        <div class="col-4">
+            <div class="input-group">
+                {{form.team_name}}
+            </div>
+        </div>
+        </div>
+        {{ formset.management_form }}
+        {% for subform in formset %}
+        <div class="row form-row spacer">
+            <div class="col-2">
+                <label>{{subform.student_id.label}}</label>
+            </div>
+            <div class="col-4">
+                <div class="input-group">
+                    {{subform.student_id}}<div class="input-group-append">
+                        <button class="btn btn-success add-form-row">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="row spacer">
+            <div class="col-4 offset-2">
+                <button type="submit" class="btn btn-block btn-primary">Submit</button>
+            </div>
+        </div>
+</form>
+{% endblock %}

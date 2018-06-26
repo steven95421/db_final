@@ -4,9 +4,13 @@ from Home.forms import SignUpForm
 from django.http import HttpResponse
 from Home.models import Announcement
 from Home.models import event
+from Home.models import Team
 from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
 from Home.forms import EventForm
+from Home.forms import EventSignUp
+from Home.forms import MemberFormset
+
 def home(request):
     Announcement_list = Announcement.objects.all()
     return render(request, 'home.html', {
@@ -16,7 +20,26 @@ def home(request):
 
 def signup(request, id):
     event_signup = event.objects.get(id=id)
-    return render(request, 'signup.html', {'event_signup': event_signup})
+    remain_team = event_signup.Team_Limit
+    if request.method == 'GET':
+        form = EventSignUp(request.GET or None)
+        formset = MemberFormset(queryset=Team.objects.none())
+    elif request.method == 'POST':
+        form = EventSignUp(request.POST)
+        formset = MemberFormset(request.POST)
+        if form.is_valid() and formset.is_valid():
+            complete_form = form.save(commit=False)
+            complete_form.event_id = id
+            complete_form.event = event_signup.Event_name
+            complete_form.save()
+            for subform in formset:
+                member = subform.save(commit=False)
+                member.team_name = complete_form.team_name
+                member.event_id = complete_form.event_id
+                member.event = complete_form.event
+                member.save()
+            return redirect('/events/', permanent=True)
+    return render(request, 'signup.html',{'form': form,'event_signup': event_signup,'formset': formset,},)
 
 
 def events(request):

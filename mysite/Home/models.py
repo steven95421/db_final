@@ -50,7 +50,7 @@ class Team(models.Model):
 
     def get_studentname(self):
         return json.loads(self.student_name)
-    event = models.CharField(max_length=50)
+    event_id = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
 
