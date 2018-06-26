@@ -131,3 +131,4 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/home'
 LOGOUT_REDIRECT_URL = '/login'
+DATETIME_INPUT_FORMATS = '%Y-%m-%d %H:%M'

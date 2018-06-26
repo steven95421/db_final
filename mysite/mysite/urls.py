@@ -27,6 +27,8 @@ urlpatterns = [
     path('home/', Home_views.home),  # new
     path('login/', Home_views.login),
     path('events/', Home_views.events),
+    path('events/add', Home_views.events_add),
+    re_path('events/edit/(?P<id>\d+)/',  Home_views.events_edit),
     re_path('signup/(?P<id>\d+)/', Home_views.signup),
     re_path('anncs/(?P<id>\d+)/', Home_views.anncs),
     path('register/', Home_views.register),
