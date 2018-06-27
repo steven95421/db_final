@@ -11,6 +11,8 @@ from django.contrib.auth import login as auth_login
 from Home.forms import EventForm
 from Home.forms import EventSignUp
 from Home.forms import MemberFormset
+from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 def home(request):
     Announcement_list = Announcement.objects.all()
@@ -60,14 +62,12 @@ def admin(request):
     return render(request, 'admin.html')
 
 
-def add_teammate(request, id):
-    return render(request, 'register.html')
-
-
-def update_profile(request, user_id):
-    user = User.objects.get(pk=user_id)
-    user.profile.bio = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit...'
-    user.save()
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username=username).exists()
+    }
+    return JsonResponse(data)
 
 def register(request):
     if request.method == 'POST':

@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.views.generic import RedirectView
 from django.urls import path, re_path
-
+from django.conf.urls import url
 from Home import views as Home_views  # new
 from django.conf.urls import include
 urlpatterns = [
@@ -33,5 +33,7 @@ urlpatterns = [
     re_path('anncs/(?P<id>\d+)/', Home_views.anncs),
     path('register/', Home_views.register),
     re_path('events/delete/(?P<id>\d+)/', Home_views.delete_event),
+    path('ajax/validate_username/',
+        Home_views.validate_username, name='validate_username'),
 
 ]

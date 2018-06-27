@@ -26,7 +26,7 @@
             <div class="col-2">
                 <label>{{subform.student_id.label}}</label>
             </div>
-            <div class="col-4">
+            <div class="col-4" style="white-space:nowrap;">
                 <div class="input-group">
                     {{subform.student_id}}<div class="input-group-append">
                         <button class="btn btn-success add-form-row">+</button>
@@ -41,7 +41,6 @@
             </div>
         </div>
 </form>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script type="text/javascript">
 function updateElementIndex(el, prefix, ndx) {
     var id_regex = new RegExp('(' + prefix + '-\\d+)');
@@ -59,8 +58,11 @@ function cloneMore(selector, prefix) {
             name = name.replace('-' + (total-1) + '-', '-' + total + '-');
             var id = 'id_' + name;
             $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+            
         }
+        
     });
+    
     total++;
     $('#id_' + prefix + '-TOTAL_FORMS').val(total);
     $(selector).after(newElement);
@@ -87,7 +89,26 @@ function deleteForm(prefix, btn) {
 }
 $(document).on('click', '.add-form-row', function(e){
     e.preventDefault();
-    cloneMore('.form-row:last', 'form');
+    var allSelects = document.getElementsByClassName('form-control');
+    var lastSelect = allSelects[allSelects.length - 1];
+    
+    $.ajax({
+        url: '/ajax/validate_username/',
+        data: {
+            'username': lastSelect.value
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (!data.is_taken) {
+                alert("Username is not registered");
+            }
+            else{
+                cloneMore('.form-row:last', 'form');
+            }
+        }
+    });
+    
+    
     return false;
 });
 $(document).on('click', '.remove-form-row', function(e){
@@ -95,5 +116,6 @@ $(document).on('click', '.remove-form-row', function(e){
     deleteForm('form', $(this));
     return false;
 });
+
 </script>
 {% endblock %}
