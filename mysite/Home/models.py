@@ -33,26 +33,18 @@ class Announcement(models.Model):
         return self.Title
 
 
-class Team(models.Model):
-    team_id = models.AutoField(primary_key=True)
+class Team_event(models.Model):
+    team = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=100)
-    student_id = models.CharField(max_length=2000)
-
-    def set_studentid(self, x):
-        self.studentid = json.dumps(x)
-
-    def get_studentid(self):
-        return json.loads(self.student_id)
-    student_name = models.CharField(max_length=2000)
-
-    def set_studentname(self, x):
-        self.studentname = json.dumps(x)
-
-    def get_studentname(self):
-        return json.loads(self.student_name)
     event_id = models.IntegerField()
-    created_at = models.DateTimeField(auto_now_add=True)
+    def __str__(self):
+        return str(self.team)
 
+class Team_member(models.Model):
+    team = models.ForeignKey(Team_event, on_delete=models.PROTECT)
+    student_id = models.CharField(max_length=2000)
+    def __str__(self):
+        return self.student_id
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

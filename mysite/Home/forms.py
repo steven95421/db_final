@@ -2,7 +2,8 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from Home.models import event
-from Home.models import Team
+from Home.models import Team_event
+from Home.models import Team_member
 from django.forms import ModelForm
 from django.forms import modelformset_factory
 
@@ -33,8 +34,8 @@ class EventForm(ModelForm):
 class EventSignUp(ModelForm):
     #event_id = forms.IntegerField("self",blank = True) 
     class Meta:
-        model = Team
-        fields = ('team_name','student_id','student_name')
+        model = Team_event
+        fields = ('team_name',)
         widgets = {
             'team_name': forms.TextInput(attrs={
                 'class': 'form-control',
@@ -44,8 +45,8 @@ class EventSignUp(ModelForm):
         }
 
 MemberFormset = modelformset_factory(
-    Team,
-    fields=('student_id','student_name', ),
+    Team_member,
+    fields=('student_id',),
     extra=1,
     widgets={
         'student_id': forms.TextInput(
@@ -53,11 +54,6 @@ MemberFormset = modelformset_factory(
                 'class': 'form-control',
             }
         ),
-        'student_name': forms.TextInput(
-            attrs={
-                'class': 'form-control',
-            }
-        )
     }
 )
 
