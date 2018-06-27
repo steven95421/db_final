@@ -8,11 +8,12 @@ from Home.models import Team_event
 from Home.models import Team_member
 from django.contrib.auth import  authenticate
 from django.contrib.auth import login as auth_login
-from Home.forms import EventForm
+from Home.forms import EventForm, AnncsForm
 from Home.forms import EventSignUp
 from Home.forms import MemberFormset
 from django.contrib.auth.models import User
 from django.http import JsonResponse
+import datetime
 
 def home(request):
     Announcement_list = Announcement.objects.all()
@@ -88,7 +89,25 @@ def delete_event(request, id):
     event_delete = event.objects.get(id=id)
     event_delete.delete()
     return redirect('/events/', permanent=True)
-    
+
+
+def anncs_delete(request, id):
+    anncs = Announcement.objects.get(id=id)
+    anncs.delete()
+    return redirect('/home/', permanent=True)
+
+
+def anncs_edit(request, id):
+    post = Announcement.objects.get(id=id)
+    if request.method == "POST":
+        form = AnncsForm(request.POST, instance=post)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            return redirect('/home/', permanent=True)
+    else:
+        form = AnncsForm(instance=post)
+    return render(request, 'anncs_edit.html', {'form': form})
 
 
 
@@ -114,6 +133,18 @@ def events_add(request):
         form = EventForm()
     return render(request, 'event_add.html', {'form': form})
 
-    
+
+def anncs_add(request):
+    if request.method == 'POST':
+        form = AnncsForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.Posted_time = datetime.datetime.now()
+            post.author = request.user.username
+            post.save()
+            return redirect('/home/', permanent=True)
+    else:
+        form = AnncsForm()
+    return render(request, 'anncs_add.html', {'form': form})
 
 

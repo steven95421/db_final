@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from Home.models import event
+from Home.models import event,Announcement
 from Home.models import Team_event
 from Home.models import Team_member
 from django.forms import ModelForm
@@ -29,6 +29,13 @@ class EventForm(ModelForm):
         widgets = {
             'Date': forms.DateTimeInput(attrs={'class': 'datetimepicker'})
         }
+
+
+class AnncsForm(ModelForm):
+    class Meta:
+        model = Announcement
+        fields = ['Title', 'Description', 'image', 'markdown_text',]
+
     
 
 class EventSignUp(ModelForm):

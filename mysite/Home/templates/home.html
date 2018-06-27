@@ -1,12 +1,22 @@
 {% extends 'upper.html' %} {% block content %}
 <div class="container announce-wrapper">
 	<h3 class="title">最新公告</h3>
+		 {% if user.is_superuser %}
+		<div class="pull-right">
+			<a href="/anncs/add">
+				<button type="button" class="btn btn-primary">新增公告</button>
+			</a>
+		</div>
+		{% endif %}
 	<div class="row">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>標題</th>
 					<th>發布時間</th>
+					 {% if user.is_superuser %}
+					<th>操作</th>
+					 {% endif %}
 				</tr>
 			</thead>
 
@@ -21,6 +31,17 @@
 					<td>
 						{{ Announcement.Posted_time }}
 					</td>
+					
+					 {% if user.is_superuser %}
+					<td>
+					<a href="/anncs/edit/{{ Announcement.id }}">
+						<button type="button" class="btn btn-success">修改公告</button>
+					</a>
+					<a href="/anncs/delete/{{ Announcement.id }}">
+
+						<button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')"> 刪除公告</button>
+					</a></td>
+					 {% endif %}
 					{% endfor %}
 				</tr>
 			</tbody>
