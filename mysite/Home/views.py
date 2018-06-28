@@ -14,15 +14,20 @@ from Home.forms import MemberFormset
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import datetime
-
+from django.core import signing
+from itertools import chain
 def home(request):
     Announcement_list = Announcement.objects.all()
+    for Anno in Announcement_list:
+        Anno.id = signing.dumps(Anno.id)
+    
     return render(request, 'home.html', {
         'Announcement_list': Announcement_list,
     })
 
 
 def signup(request, id):
+    id = signing.loads(id)
     event_signup = event.objects.get(id=id)
     remain_team = event_signup.Team_Limit
     if request.method == 'GET':
@@ -33,18 +38,21 @@ def signup(request, id):
         formset = MemberFormset(request.POST)
         if form.is_valid() and formset.is_valid():
             complete_form = form.save(commit=False)
-            complete_form.event_id = id
+            complete_form.event = event_signup
             complete_form.save()
             for subform in formset:
                 member = subform.save(commit=False)
-                member.team = complete_form
-                member.save()
+                if(User.objects.filter(username=member.student_id).exists()):
+                    member.team = complete_form
+                    member.save()
             return redirect('/events/',permanent=True)
     return render(request, 'signup.html',{'form': form,'event_signup': event_signup,'formset': formset,},)
 
 
 def events(request):
     event_list = event.objects.all()
+    for i in event_list:
+        i.id = signing.dumps(i.id)
     return render(request, 'events.html', {
         'event_list': event_list,
     })
@@ -55,6 +63,7 @@ def login(request):
 
 
 def anncs(request, id):
+    id = signing.loads(id)
     cur_Announcement = Announcement.objects.get(id=id)
     return render(request, 'anncs.html', {'anncs': cur_Announcement})
 
@@ -86,18 +95,21 @@ def register(request):
         form = SignUpForm()
     return render(request, 'register.html', {'form': form})
 def delete_event(request, id):
+    id = signing.loads(id)
     event_delete = event.objects.get(id=id)
     event_delete.delete()
     return redirect('/events/', permanent=True)
 
 
 def anncs_delete(request, id):
+    id = signing.loads(id)
     anncs = Announcement.objects.get(id=id)
     anncs.delete()
     return redirect('/home/', permanent=True)
 
 
 def anncs_edit(request, id):
+    id = signing.loads(id)
     post = Announcement.objects.get(id=id)
     if request.method == "POST":
         form = AnncsForm(request.POST, instance=post)
@@ -112,6 +124,7 @@ def anncs_edit(request, id):
 
 
 def events_edit(request, id):
+    id = signing.loads(id)
     post = event.objects.get(id=id)
     if request.method == "POST":
         form = EventForm(request.POST, instance=post)
@@ -146,5 +159,19 @@ def anncs_add(request):
     else:
         form = AnncsForm()
     return render(request, 'anncs_add.html', {'form': form})
+
+
+def events_status(request, id):
+    id = signing.loads(id)
+    post = event.objects.get(id=id)
+    Team_in_event = Team_event.objects.filter(event=post)
+    Team_set=[]
+    for i in Team_in_event:
+        member_in_Team = Team_member.objects.filter(team=i)
+        Team_set.append(member_in_Team)
+    Team_set=zip(Team_set, Team_in_event)
+    return render(request, 'event_status.html', {'Team_set': Team_set, 'Team_in_event': Team_in_event})
+
+    
 
 

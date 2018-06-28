@@ -36,12 +36,12 @@ class Announcement(models.Model):
 class Team_event(models.Model):
     team = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=100)
-    event_id = models.IntegerField()
+    event = models.ForeignKey(event, on_delete=models.PROTECT)
     def __str__(self):
-        return str(self.team)
+        return str(self.team_name)
 
 class Team_member(models.Model):
-    team = models.ForeignKey(Team_event, on_delete=models.PROTECT)
+    team = models.ForeignKey(Team_event, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=2000)
     def __str__(self):
         return self.student_id

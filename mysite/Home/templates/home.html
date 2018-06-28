@@ -24,7 +24,7 @@
 				{% for Announcement in Announcement_list %}
 				<tr>
 					<td>
-						<a href="/anncs/{{ Announcement.id }}">
+						<a href="/home_anncs/{{ Announcement.id }}">
 							{{ Announcement.Title }}
 						</a>
 					</td>
@@ -42,8 +42,9 @@
 						<button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')"> 刪除公告</button>
 					</a></td>
 					 {% endif %}
-					{% endfor %}
+					
 				</tr>
+				 {% endfor %}
 			</tbody>
 
 
