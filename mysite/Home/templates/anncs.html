@@ -18,13 +18,14 @@
 <body>
 	<div class="container announce-wrapper">
 		<h3 class="title">{{anncs.Title}}</h3>
-		<tr>
-			<td class="col-md-12 date">{{anncs.Posted_time}}</td>
-			<td class="col-md-12 date">{{anncs.image}}</td>
-			<td class="col-md-12 announce-content">{{anncs.Description}}</td>
-			<td class="col-md-12 date">{{anncs.markdown_text}}</td>
-			<td class="col-md-12 date">{{anncs.author}}</td>
-		</tr>
+			<table class="table text-center">
+			<tr><td class="text-center"><h4>Posted_time:</h4>{{anncs.Posted_time}}</td></tr>
+			<tr><td class="text-center"><h4>Image:</h4>{{anncs.image}}</td></tr>
+			<tr><td class="text-center"><h4>Description:</h4>{{anncs.Description}}</td></tr>
+			<tr><td class="text-center"><h4>Markdown_text:</h4>{{anncs.markdown_text}}</td></tr>
+			<tr><td class="text-center">
+				 <h4>Author:</h4>{{anncs.author}}</td></tr>
+			</table>
 
 	</div>
 </body>
