@@ -1,4 +1,12 @@
  {% extends 'upper.html' %} {% block content %}
+ {% if messages %}
+
+	{% for message in messages %}
+	 <script>
+		alert('{{ message }}');
+	</script>
+	{% endfor %}
+{% endif %}
 <div class="container event-wrapper event-list">
 	<h3 class="title">活動列表</h3>
 	{% if user.is_superuser %}
@@ -48,8 +56,17 @@
 					} else {
 						return false;
 					}
-				} </script> {% endif %}
-
+				} </script> 
+			{% elif user.is_authenticated %}
+			<td>
+				
+				<a href="/signup_delete/{{ event.id }}">
+					<div class="pull-right">
+						<button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure?')" />取消報名</button>
+					</div>
+				</a>
+			</td>
+			 {% endif %}
 
 		</tr>
 		{% endfor %}
@@ -57,4 +74,5 @@
 	</table>
 	</br>
 </div>
+
 {% endblock %}

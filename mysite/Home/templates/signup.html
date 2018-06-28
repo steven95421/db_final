@@ -20,6 +20,9 @@
             </div>
         </div>
         </div>
+        <h4>
+            隊長是:{{leader}}
+        </h4>
         {{ formset.management_form }}
         {% for subform in formset %}
         <div class="row form-row spacer">
@@ -41,6 +44,13 @@
             </div>
         </div>
 </form>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
 <script type="text/javascript">
 function updateElementIndex(el, prefix, ndx) {
     var id_regex = new RegExp('(' + prefix + '-\\d+)');

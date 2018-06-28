@@ -16,6 +16,7 @@ from django.http import JsonResponse
 import datetime
 from django.core import signing
 from itertools import chain
+from django.contrib import messages
 def home(request):
     Announcement_list = Announcement.objects.all()
     for Anno in Announcement_list:
@@ -40,6 +41,7 @@ def signup(request, id):
             if form.is_valid() and formset.is_valid():
                 complete_form = form.save(commit=False)
                 complete_form.event = event_signup
+                complete_form.leader = User.objects.get(username=request.user)
                 complete_form.save()
                 for subform in formset:
                     member = subform.save(commit=False)
@@ -47,7 +49,7 @@ def signup(request, id):
                         member.team = complete_form
                         member.save()
                 return redirect('/events/',permanent=True)
-        return render(request, 'signup.html',{'form': form,'event_signup': event_signup,'formset': formset,},)
+        return render(request, 'signup.html', {'form': form, 'event_signup': event_signup, 'formset': formset, 'leader': request.user},)
     else:
         return redirect('/login/', permanent=True)
 
@@ -172,8 +174,20 @@ def events_status(request, id):
         member_in_Team = Team_member.objects.filter(team=i)
         Team_set.append(member_in_Team)
     Team_set=zip(Team_set, Team_in_event)
-    return render(request, 'event_status.html', {'Team_set': Team_set, 'Team_in_event': Team_in_event})
+    return render(request, 'event_status.html', {'Team_set': Team_set, 'evnet_name': post})
 
-    
+
+def signup_delete(request, id):
+    id = signing.loads(id)
+    cur_event = event.objects.get(id=id)
+    try:
+        post = Team_event.objects.get(leader=request.user, event=cur_event)
+    except Team_event.DoesNotExist:
+        messages.warning(request, '取消失敗')
+        return redirect('/events/', permanent=True)
+    post.delete()
+    messages.success(request, '取消成功')
+    return redirect('/events/', permanent=True)
+
 
 

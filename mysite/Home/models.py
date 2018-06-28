@@ -36,6 +36,7 @@ class Announcement(models.Model):
 class Team_event(models.Model):
     team = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=100)
+    leader = models.ForeignKey(User, on_delete=models.PROTECT)
     event = models.ForeignKey(event, on_delete=models.PROTECT)
     class Meta:
         unique_together = (("team_name", "event"),)
@@ -45,6 +46,7 @@ class Team_event(models.Model):
 class Team_member(models.Model):
     team = models.ForeignKey(Team_event, on_delete=models.CASCADE)
     student_id = models.CharField(max_length=2000)
+    
     def __str__(self):
         return self.student_id
 

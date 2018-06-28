@@ -1,12 +1,14 @@
 {% extends 'upper.html' %} {% block content %}
 <div class="container announce-wrapper">
-    <h3 class="title">報名狀況</h3>
+    <h3 class="title">{{evnet_name}}的報名狀況</h3>
     <div class="row">
         <table class="table table-hover">
 
             <tbody>
                 {% for Members,Team in Team_set%}
                 <h2>{{Team}}</h2>
+                <h3>隊長是：{{Team.leader}}</h3>
+                 隊員有：
                      {% for field in Members %}
                         {{ field }}
                      {% endfor %}

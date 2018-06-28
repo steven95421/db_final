@@ -38,6 +38,7 @@ urlpatterns = [
     path('register/', Home_views.register),
     re_path('events/delete/(?P<id>[^/]+)/', Home_views.delete_event),
     path('ajax/validate_username/',
-        Home_views.validate_username, name='validate_username'),
+        Home_views.validate_username, name = 'validate_username'),
+    re_path('signup_delete/(?P<id>[^/]+)/', Home_views.signup_delete),
 
 ]
