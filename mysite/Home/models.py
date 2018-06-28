@@ -37,6 +37,8 @@ class Team_event(models.Model):
     team = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=100)
     event = models.ForeignKey(event, on_delete=models.PROTECT)
+    class Meta:
+        unique_together = (("team_name", "event"),)
     def __str__(self):
         return str(self.team_name)
 

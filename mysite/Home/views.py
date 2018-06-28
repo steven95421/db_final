@@ -27,27 +27,29 @@ def home(request):
 
 
 def signup(request, id):
-    id = signing.loads(id)
-    event_signup = event.objects.get(id=id)
-    remain_team = event_signup.Team_Limit
-    if request.method == 'GET':
-        form = EventSignUp(request.GET or None)
-        formset = MemberFormset(queryset=Team_member.objects.none())
-    elif request.method == 'POST':
-        form = EventSignUp(request.POST)
-        formset = MemberFormset(request.POST)
-        if form.is_valid() and formset.is_valid():
-            complete_form = form.save(commit=False)
-            complete_form.event = event_signup
-            complete_form.save()
-            for subform in formset:
-                member = subform.save(commit=False)
-                if(User.objects.filter(username=member.student_id).exists()):
-                    member.team = complete_form
-                    member.save()
-            return redirect('/events/',permanent=True)
-    return render(request, 'signup.html',{'form': form,'event_signup': event_signup,'formset': formset,},)
-
+    if(request.user.is_authenticated):
+        id = signing.loads(id)
+        event_signup = event.objects.get(id=id)
+        remain_team = event_signup.Team_Limit
+        if request.method == 'GET':
+            form = EventSignUp(request.GET or None)
+            formset = MemberFormset(queryset=Team_member.objects.none())
+        elif request.method == 'POST':
+            form = EventSignUp(request.POST)
+            formset = MemberFormset(request.POST)
+            if form.is_valid() and formset.is_valid():
+                complete_form = form.save(commit=False)
+                complete_form.event = event_signup
+                complete_form.save()
+                for subform in formset:
+                    member = subform.save(commit=False)
+                    if(User.objects.filter(username=member.student_id).exists()):
+                        member.team = complete_form
+                        member.save()
+                return redirect('/events/',permanent=True)
+        return render(request, 'signup.html',{'form': form,'event_signup': event_signup,'formset': formset,},)
+    else:
+        return redirect('/login/', permanent=True)
 
 def events(request):
     event_list = event.objects.all()
