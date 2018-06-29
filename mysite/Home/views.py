@@ -48,7 +48,7 @@ def signup(request, id):
                 complete_form.event = event_signup
                 complete_form.leader = User.objects.get(username=request.user)
                 complete_form.save()
-                for subform in formset:
+                for subform in formset[:-1]:
                     member = subform.save(commit=False)
                     if(User.objects.filter(username=member.student_id).exists()):
                         member.team = complete_form
