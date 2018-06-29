@@ -7,11 +7,16 @@
             <tbody>
                 {% for Members,Team in Team_set%}
                 <h2>{{Team}}</h2>
-                <h3>隊長是：{{Team.leader}}</h3>
-                 隊員有：
+                <h3>隊長：{{Team.leader}}</h3>
+                 隊員：
+                 {% if Members %}
                      {% for field in Members %}
                         {{ field }}
                      {% endfor %}
+                
+                {% else %}
+                無
+                 {% endif %}
                  {% endfor %}
             </tbody>
 

@@ -31,7 +31,12 @@ def signup(request, id):
     if(request.user.is_authenticated):
         id = signing.loads(id)
         event_signup = event.objects.get(id=id)
-        remain_team = event_signup.Team_Limit
+    
+        Team_in_event = Team_event.objects.filter(event=event_signup).count()
+        remain_event = event_signup.Team_Limit-Team_in_event
+        if (remain_event == 0):
+            messages.warning(request, '隊伍上限已滿')
+            return redirect('/events/', permanent=True)
         if request.method == 'GET':
             form = EventSignUp(request.GET or None)
             formset = MemberFormset(queryset=Team_member.objects.none())
@@ -49,7 +54,7 @@ def signup(request, id):
                         member.team = complete_form
                         member.save()
                 return redirect('/events/',permanent=True)
-        return render(request, 'signup.html', {'form': form, 'event_signup': event_signup, 'formset': formset, 'leader': request.user},)
+        return render(request, 'signup.html', {'form': form, 'event_signup': event_signup, 'Team_in_event': Team_in_event, 'remain_event': remain_event, 'formset': formset, 'leader': request.user},)
     else:
         return redirect('/login/', permanent=True)
 

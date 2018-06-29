@@ -34,10 +34,10 @@ class Announcement(models.Model):
 
 
 class Team_event(models.Model):
-    team = models.AutoField(primary_key=True)
     team_name = models.CharField(max_length=100)
     leader = models.ForeignKey(User, on_delete=models.PROTECT)
     event = models.ForeignKey(event, on_delete=models.PROTECT)
+
     class Meta:
         unique_together = (("team_name", "event"),)
     def __str__(self):
